@@ -2,7 +2,7 @@
 
 > 专为**大量阅读英文网站**的中文用户设计。安装即用，零配置，完全本地运行。
 
-![Kody Screenshot](https://raw.githubusercontent.com/your-username/kody/main/docs/screenshot.png)
+![Kody Screenshot](https://github.com/forestery/kody/blob/main/docs/screenshot.png)
 
 ---
 
@@ -56,10 +56,10 @@ Kody 目前尚未上架 Chrome Web Store，需要手动加载。
 **第一步：下载源码**
 
 ```bash
-git clone https://github.com/your-username/kody.git
+git clone https://github.com/forestery/kody.git
 ```
 
-或者直接下载 [ZIP 包](https://github.com/your-username/kody/archive/refs/heads/main.zip) 并解压。
+或者直接下载 [ZIP 包](https://github.com/forestery/kody/archive/refs/heads/main.zip) 并解压。
 
 **第二步：打开 Chrome 扩展管理页**
 
