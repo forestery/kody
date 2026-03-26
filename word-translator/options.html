@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Kody · 设置</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f9f9f8; --surface: #ffffff; --surface2: #f5f4f2;
+      --border: #e8e6e1; --border2: #d9d6cf;
+      --text: #1a1915; --text2: #6b6860; --text3: #9b9790;
+      --accent: #d97706; --accent-bg: #fef3c7; --accent-border: #fde68a;
+      --blue: #2563eb; --blue-bg: #eff6ff; --blue-border: #bfdbfe;
+      --red: #dc2626; --red-bg: #fef2f2; --red-border: #fecaca;
+      --green: #16a34a; --green-bg: #f0fdf4;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: ui-sans-serif,-apple-system,'PingFang SC','Hiragino Sans GB',sans-serif;
+      font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Layout */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      background: var(--surface); border-right: 1px solid var(--border);
+      padding: 24px 0; position: fixed; top: 0; left: 0; bottom: 0;
+      display: flex; flex-direction: column;
+    }
+    .sidebar-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 20px 24px; border-bottom: 1px solid var(--border); margin-bottom: 8px;
+    }
+    .brand-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: #1e180a; border: 1px solid #f59e0b;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 18px; color: #fbbf24; flex-shrink: 0;
+    }
+    .brand-name { font-size: 15px; font-weight: 700; }
+    .brand-sub  { font-size: 11px; color: var(--text3); margin-top: 1px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 8px 20px; cursor: pointer; font-size: 13px; font-weight: 500;
+      color: var(--text2); border: none; background: none; width: 100%;
+      text-align: left; font-family: inherit; transition: all 0.1s;
+    }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: var(--accent-bg); color: #92400e; font-weight: 600; }
+    .nav-item svg { flex-shrink: 0; opacity: 0.6; }
+    .nav-item.active svg { opacity: 1; }
+    .sidebar-footer {
+      margin-top: auto; padding: 16px 20px 0;
+      border-top: 1px solid var(--border); font-size: 11px; color: var(--text3);
+    }
+
+    /* Main */
+    .main { margin-left: 220px; flex: 1; padding: 40px 48px; max-width: calc(100% - 220px); }
+    .page-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .page-title  { font-size: 20px; font-weight: 700; }
+    .page-sub    { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* Stats */
+    .stat-row { display: flex; gap: 16px; margin-bottom: 28px; }
+    .stat-card {
+      flex: 1; padding: 20px 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .stat-n { font-size: 32px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1; margin-bottom: 4px; }
+    .stat-l { font-size: 12px; color: var(--text2); font-weight: 500; }
+
+    /* Vocab estimate card */
+    .vocab-card {
+      background: var(--accent-bg); border: 1px solid var(--accent-border);
+      border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px;
+    }
+    .vocab-title { font-size: 13px; font-weight: 600; color: #92400e; margin-bottom: 8px; }
+    .vocab-level { font-size: 24px; font-weight: 700; color: #78350f; }
+    .vocab-count { font-size: 14px; color: #92400e; margin-top: 2px; }
+    .vocab-note  { font-size: 11px; color: #b45309; margin-top: 8px; }
+
+    /* Table */
+    .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .search-wrap { position: relative; flex: 1; }
+    .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); pointer-events: none; }
+    #search-input {
+      width: 100%; padding: 8px 12px 8px 34px;
+      border: 1px solid var(--border2); border-radius: 8px;
+      background: var(--surface); font-size: 13px; color: var(--text);
+      font-family: inherit; outline: none; transition: border-color 0.15s;
+    }
+    #search-input:focus { border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(167,139,250,0.15); }
+    #search-input::placeholder { color: var(--text3); }
+    .btn-ghost {
+      padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border2); background: var(--surface);
+      color: var(--text2); cursor: pointer; font-family: inherit; white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+
+    .table-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: var(--surface2); }
+    th {
+      padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600;
+      color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    td { padding: 11px 16px; font-size: 13px; vertical-align: top; }
+    .td-word { font-weight: 600; color: var(--text); font-size: 14px; }
+    .td-trans { color: var(--text2); }
+    .td-cnt { color: var(--text3); font-size: 12px; }
+    .td-review { white-space: nowrap; font-size: 12px; font-weight: 500; }
+    .review-due   { color: var(--red); }
+    .review-today { color: var(--accent); }
+    .review-later { color: var(--green); }
+    .badge-stage {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 600;
+      background: var(--accent-bg); color: #92400e; border: 1px solid var(--accent-border);
+    }
+    .btn-remove {
+      padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 500;
+      background: var(--red-bg); border: 1px solid var(--red-border);
+      color: var(--red); cursor: pointer; font-family: inherit; transition: all 0.15s;
+    }
+    .btn-remove:hover { background: #fee2e2; }
+
+    /* History expand */
+    .history-toggle {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--blue); cursor: pointer;
+      background: none; border: none; padding: 0; font-family: inherit; margin-top: 3px;
+    }
+    .history-toggle:hover { text-decoration: underline; }
+    .history-rows { display: none; margin-top: 6px; }
+    .history-rows.open { display: block; }
+    .hist-entry {
+      display: flex; align-items: center; gap: 8px; padding: 3px 0;
+      font-size: 12px; color: var(--text2); border-top: 1px solid var(--border);
+    }
+    .hist-entry:first-child { border-top: none; }
+    .hist-time { color: var(--text3); white-space: nowrap; flex-shrink: 0; min-width: 75px; }
+    .hist-url { color: var(--blue); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .hist-url:hover { text-decoration: underline; }
+
+    /* Pagination */
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-top: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    .page-info { font-size: 12px; color: var(--text2); }
+    .page-btns { display: flex; gap: 4px; }
+    .page-btn {
+      padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 500;
+      border: 1px solid var(--border2); background: var(--surface);
+      color: var(--text2); cursor: pointer; font-family: inherit; min-width: 32px; text-align: center;
+      transition: all 0.15s;
+    }
+    .page-btn:hover:not(:disabled) { background: var(--surface2); color: var(--text); }
+    .page-btn.active { background: var(--text); color: var(--surface); border-color: var(--text); }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .empty-state { text-align: center; padding: 60px 24px; color: var(--text3); }
+    .empty-icon  { font-size: 40px; margin-bottom: 12px; }
+
+    /* Settings */
+    .settings-group { margin-bottom: 28px; }
+    .settings-group-title {
+      font-size: 11px; font-weight: 600; color: var(--text2);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .setting-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); margin-bottom: 8px; box-shadow: var(--shadow);
+    }
+    .setting-label { font-size: 13px; font-weight: 500; }
+    .setting-sub   { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .btn-danger {
+      padding: 7px 16px; border-radius: 8px; font-size: 12px; font-weight: 500;
+      background: var(--red-bg); border: 1px solid var(--red-border);
+      color: var(--red); cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.15s;
+    }
+    .btn-danger:hover { background: #fee2e2; }
+
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--text); color: var(--surface);
+      font-size: 13px; padding: 10px 20px; border-radius: 8px;
+      box-shadow: var(--shadow-md); pointer-events: none;
+      opacity: 0; transition: opacity 0.2s; z-index: 9999;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">K</div>
+      <div><div class="brand-name">Kody</div><div class="brand-sub">词汇学习助手</div></div>
+    </div>
+    <button class="nav-item active" data-section="words">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      学习单词
+    </button>
+    <button class="nav-item" data-section="settings">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      数据管理
+    </button>
+    <div class="sidebar-footer">双击单词即时翻译 · Kody</div>
+  </aside>
+
+  <main class="main">
+    <!-- 学习单词 -->
+    <div class="section active" id="section-words">
+      <div class="page-header">
+        <div class="page-title">学习单词</div>
+        <div class="page-sub">你加入学习计划的单词及遇到记录</div>
+      </div>
+
+      <div id="vocab-estimate"></div>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-n" id="stat-total">0</div><div class="stat-l">学习中单词</div></div>
+        <div class="stat-card"><div class="stat-n" style="color:#dc2626" id="stat-due">0</div><div class="stat-l">今日待复习</div></div>
+        <div class="stat-card"><div class="stat-n" style="color:#16a34a" id="stat-seen">0</div><div class="stat-l">累计翻译词数</div></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search-input" type="text" placeholder="搜索单词…">
+        </div>
+        <select id="sort-select" class="btn-ghost" style="cursor:pointer">
+          <option value="recent">最近遇到</option>
+          <option value="alpha">字母排序</option>
+          <option value="due">复习时间</option>
+          <option value="count">遇到次数</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:130px">单词</th>
+            <th>翻译 / 遇到记录</th>
+            <th style="width:70px">次数</th>
+            <th style="width:110px">下次复习</th>
+            <th style="width:80px">阶段</th>
+            <th style="width:60px"></th>
+          </tr></thead>
+          <tbody id="words-tbody"></tbody>
+        </table>
+        <div class="pagination" id="pagination" style="display:none">
+          <span class="page-info" id="page-info"></span>
+          <div class="page-btns" id="page-btns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据管理 -->
+    <div class="section" id="section-settings">
+      <div class="page-header">
+        <div class="page-title">数据管理</div>
+        <div class="page-sub">管理你的学习数据</div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-group-title">重置操作</div>
+        <div class="setting-row">
+          <div><div class="setting-label">清除学习计划</div><div class="setting-sub">清除所有单词的记忆曲线进度和遇到记录</div></div>
+          <button class="btn-danger" id="reset-learning">清除</button>
+        </div>
+        <div class="setting-row">
+          <div><div class="setting-label">重置所有数据</div><div class="setting-sub">删除全部数据，不可恢复</div></div>
+          <button class="btn-danger" id="reset-all">全部重置</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="options.js"></script>
+</body>
+</html>
