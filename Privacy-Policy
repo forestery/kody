@@ -1,0 +1,60 @@
+# Kody — Privacy Policy
+
+**Effective date: April 19, 2026**
+
+> Kody does not collect, transmit, or share any of your personal data. All processing happens locally on your device.
+
+---
+
+## 1. Overview
+
+Kody ("the Extension", "we", "us", or "our") is a browser extension designed to process and analyze the content of web pages you visit. This Privacy Policy explains what information the Extension accesses, how it is used, and — most importantly — what it does not do with that information.
+
+## 2. Information we access
+
+To provide its functionality, Kody may access the following information from your browser:
+
+- Content of the web pages you visit (text, page structure, URLs)
+- Browser tab and navigation state needed to deliver in-page features
+
+This information is accessed solely to power the features visible to you inside the Extension.
+
+## 3. Local processing only
+
+All data accessed by Kody is processed entirely on your local device. We do not operate any servers that receive your browsing data. No information about the pages you visit, the content you view, or your interactions with Kody is ever transmitted off your device.
+
+## 4. What we do not do
+
+- We do not collect or store your personal data on any remote server
+- We do not sell, rent, or share your data with any third party
+- We do not use your browsing activity for advertising or marketing purposes
+- We do not use your data for analytics, profiling, or any monetization purpose
+- We do not allow any human to access or read your personal browsing data
+
+## 5. Permissions
+
+Kody requests only the minimum browser permissions necessary to deliver its features. Any permission requested by the Extension is used solely for the purpose described in the Extension's Chrome Web Store listing and user interface. We do not request permissions for capabilities we do not currently use.
+
+## 6. Data retention
+
+Because Kody processes all data locally and does not transmit it to any external server, there is no data retained by us beyond your browser session. Any temporary data held in browser memory while you use the Extension is discarded when the Extension is closed or the session ends.
+
+## 7. Third-party services
+
+Kody does not integrate with, send data to, or depend upon any third-party analytics, tracking, or advertising services. Your data never leaves your device.
+
+## 8. Children's privacy
+
+Kody does not knowingly collect any personal information from children under the age of 13. Since we do not collect personal data from any user, we do not collect it from children either.
+
+## 9. Changes to this policy
+
+We may update this Privacy Policy from time to time. Any changes will be reflected by an updated effective date at the top of this document and, where appropriate, communicated through the Extension's Chrome Web Store listing. Continued use of Kody after any changes constitutes your acceptance of the revised policy.
+
+## 10. Contact
+
+If you have any questions or concerns about this Privacy Policy or Kody's data practices, please contact us at: [forestery@gmail.com]
+
+---
+
+© 2026 Kody. All rights reserved.
